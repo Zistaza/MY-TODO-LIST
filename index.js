@@ -1,4 +1,18 @@
-import inquirer from "inquirer";
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const inquirer_1 = __importDefault(require("inquirer"));
 let todoList = [];
 let condition = true;
 console.log("\n \t welcome in my TodoList Application\n");
@@ -23,9 +37,9 @@ console.log("\n \t welcome in my TodoList Application\n");
 //     condition = addMoreTodos.moreTodos
 // }
 // console.log("Your updated TodoList: " , todoList);
-let main = async () => {
+let main = () => __awaiter(void 0, void 0, void 0, function* () {
     while (condition) {
-        let option = await inquirer.prompt([
+        let option = yield inquirer_1.default.prompt([
             {
                 name: "choice",
                 message: "Select an Option you want in your Todos",
@@ -36,25 +50,25 @@ let main = async () => {
             }
         ]);
         if (option.choice === "Add Task") {
-            await addTask();
+            yield addTask();
         }
         else if (option.choice === "Delete Task") {
-            await deleteTask();
+            yield deleteTask();
         }
         else if (option.choice === "Update Task") {
-            await updateTask();
+            yield updateTask();
         }
         else if (option.choice === "View ToDos") {
-            await viewTask();
+            yield viewTask();
         }
         else if (option.choice === "Exit") {
             condition = false;
         }
     }
-};
+});
 //add task
-let addTask = async () => {
-    let moreTask = await inquirer.prompt([
+let addTask = () => __awaiter(void 0, void 0, void 0, function* () {
+    let moreTask = yield inquirer_1.default.prompt([
         {
             name: "task",
             type: "input",
@@ -63,7 +77,7 @@ let addTask = async () => {
     ]);
     todoList.push(moreTask.task);
     console.log(`\n ${moreTask.task} Task added sucessfully in TOdos`);
-};
+});
 //function for view all todo tasks
 let viewTask = () => {
     console.log("\n \tYour ToDo List: \n");
@@ -73,9 +87,9 @@ let viewTask = () => {
     console.log("\n");
 };
 // delete todo list function
-let deleteTask = async () => {
-    await viewTask();
-    let indexTask = await inquirer.prompt([
+let deleteTask = () => __awaiter(void 0, void 0, void 0, function* () {
+    yield viewTask();
+    let indexTask = yield inquirer_1.default.prompt([
         {
             name: "index",
             message: "Enter the index no of task you want to delete :",
@@ -84,11 +98,11 @@ let deleteTask = async () => {
     ]);
     let deleteTask = todoList.splice(indexTask.index - 1, 1);
     console.log(`\n ${deleteTask}  This Task has been deleted successfully from your todos list`);
-};
+});
 //update todo list function
-let updateTask = async () => {
-    await viewTask();
-    let updatetaskindex = await inquirer.prompt([
+let updateTask = () => __awaiter(void 0, void 0, void 0, function* () {
+    yield viewTask();
+    let updatetaskindex = yield inquirer_1.default.prompt([
         {
             name: "index",
             type: "number",
@@ -102,5 +116,5 @@ let updateTask = async () => {
     ]);
     todoList[updatetaskindex.index - 1] = updatetaskindex.UptoDate_task;
     console.log(`\n Task at index no. ${updatetaskindex.index - 1} updated successfully [for updated list "View ToDos"]`);
-};
+});
 main();
